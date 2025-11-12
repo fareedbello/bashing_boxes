@@ -2,8 +2,38 @@
 
 mkdir -p data
 
-# your items
 items=("apple" "book" "car" "hat" "phone")
+
+show_items() {
+  echo "${items[*]}"
+}
+
+add_item() {
+  read -p "Enter item: " new
+  items+=("$new")
+  echo "$new added"
+}
+
+save_box() {
+  read -p "File to save as: " name
+  echo "${items[*]}" > data/$name.txt
+  echo "saved"
+}
+
+load_box() {
+  read -p "File to load: " name
+  if [ -f data/$name.txt ]; then
+    items=($(cat data/$name.txt))
+    echo "loaded"
+  else
+    echo "file not found"
+  fi
+}
+
+list_saves() {
+  echo "Saved files:"
+  ls data
+}
 
 echo "1) Show items"
 echo "2) Add item"
@@ -12,43 +42,14 @@ echo "4) Load box"
 echo "5) List saved boxes"
 echo "6) Exit"
 
-read -p "Pick: " pick
+read -p "Choose: " choice
 
-if [ "$pick" == "1" ]; then
-  echo "${items[*]}"
-
-elif [ "$pick" == "2" ]; then
-  read -p "Item: " new
-  items+=("$new")
-  echo "$new added"
-
-elif [ "$pick" == "3" ]; then
-  read -p "Save file name: " name
-  echo "${items[*]}" > data/$name.txt
-  echo "saved"
-
-elif [ "$pick" == "4" ]; then
-  read -p "File name to load: " name
-  if [ -f data/$name.txt ]; then
-    items=($(cat data/$name.txt))
-    echo "loaded: ${items[*]}"
-  else
-    echo "file not found"
-  fi
-
-elif [ "$pick" == "5" ]; then
-  echo "Saved files:"
-  ls data
-
-elif [ "$pick" == "6" ]; then
-  read -p "save before exit? (y/n): " s
-  if [ "$s" == "y" ]; then
-    read -p "file name: " name
-    echo "${items[*]}" > data/$name.txt
-    echo "saved"
-  fi
-  echo "bye"
-
-else
-  echo "invalid"
-fi
+case "$choice" in
+  1) show_items ;;
+  2) add_item ;;
+  3) save_box ;;
+  4) load_box ;;
+  5) list_saves ;;
+  6) echo "bye" ;;
+  *) echo "invalid option" ;;
+esac
