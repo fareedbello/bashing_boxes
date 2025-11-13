@@ -51,22 +51,35 @@ exit_script() {
   echo "Goodbye!"
 }
 
-# --- Menu ---
-echo ""
-echo "1) Show items"
-echo "2) Add item"
-echo "3) Save box"
-echo "4) Load box"
-echo "5) List saved boxes"
-echo "6) Exit"
-read -p "Pick an option: " choice
+display_main_menu(){
+  # --- Menu ---
+  echo ""
+  echo "1) Show items"
+  echo "2) Add item"
+  echo "3) Save box"
+  echo "4) Load box"
+  echo "5) List saved boxes"
+  echo "6) Exit"
+  read -p "Pick an option: " choice
+  check_menu_options
+}
 
-case $choice in
-  1) print_list ;;
-  2) add_item ;;
-  3) save_box ;;
-  4) load_box ;;
-  5) list_boxes ;;
-  6) exit_script ;;
-  *) echo "Invalid option, try again." ;;
-esac
+check_menu_options(){
+  case $choice in
+    1) print_list ;;
+    2) add_item ;;
+    3) save_box ;;
+    4) load_box ;;
+    5) list_boxes ;;
+    6) exit_script ;;
+    *) 
+      clear
+      echo "Invalid option, try again." 
+      display_main_menu
+    ;;
+  esac
+}
+
+
+display_main_menu
+
