@@ -1,0 +1,1 @@
+from my reasearch i was able to find that ai can be used in the police department for various reasons like facial recongnition data analysis investigatons and improving public safety although i did have some concerns as news outlets says there a najor challenges and concerns like privacy and surveillance and the presence of bias in the system 
